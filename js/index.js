@@ -1,4 +1,4 @@
-const KoreanApi = `DB74236416D14FAB8B49DDFA5E21B246`;
+const KoreanApi = `9CDF171804A5CDD8F44958CB030FC0FE`;
 
 async function getKoreanApi () {
     let data = await fetch(`http://stdict.korean.go.kr/api/search.do?key=${KoreanApi}&q=나무`)
