@@ -1,12 +1,22 @@
-const KoreanApi = `9CDF171804A5CDD8F44958CB030FC0FE`;
+const form = document.querySelector("#input_word");
+const input = form.querySelector(".word");
+const human = document.querySelector(".human_word");
+const computer = document.querySelector("computer_word");
 
-async function getKoreanApi () {
-    let data = await fetch(`https://stdict.korean.go.kr/api/search.do?key=${KoreanApi}&q=나무`)
-    .then(response => {
-        return response.json();
-    })
-    .then(function app(json) {
-        console.log(json);
-    });
+const humanInputWord = (text) => {
+    
+} 
+
+const handleSubmitWord = (event) => {
+    event.preventDefault();
+    const currentValue = input.value;
+    humanInputWord(currentValue);
+    const lastWord = currentValue.slice(-1);
+    input.value = lastWord;
 }
-getKoreanApi();
+
+function startGame() {
+    form.addEventListener("submit", handleSubmitWord);
+}
+
+startGame();

@@ -3,10 +3,25 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="css/main.css" />
         <script defer src="js/index.js"></script>
         <title> 끝말잇기 게임 </title>
     </head>
     <body>
-        <h1>안녕하세요</h1>
+        <main>
+            <h1>끝말잇기</h1>
+            <form id="input_word">
+                <input class="word" type="text" placeholder="입력하세요" />
+            </form>
+            <div class="human">
+                <h2>사람</h2>
+                <ul class="human_word">
+                </ul>
+            </div>
+            <div class="computer">
+                <h2>컴퓨터</h2>
+                <ul class="computer_word"></ul>
+            </div>
+        </main>
     </body>
 </html>
