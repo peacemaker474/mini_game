@@ -8,6 +8,8 @@ function getKorea() {
         const data = Array.from(xmlHttp.responseXML.all);
         const word = data.filter(item => item.tagName === "word");
         let i = Math.round(Math.random() * 10);
+        console.log(word);
+        console.lod(data);
         console.log(word[i].textContent);
         console.log("통신 성공");
     } else {
