@@ -1,12 +1,18 @@
-const KoreanApi = `9CDF171804A5CDD8F44958CB030FC0FE`;
+const KoreanApi = `69C1A75986C675AEFEC60B73B2DF3193`;
 
-async function getKoreanApi () {
-    let data = await fetch(`https://stdict.korean.go.kr/api/search.do?key=${KoreanApi}&q=나무`)
-    .then(response => {
-        return response.json();
-    })
-    .then(function app(json) {
-        console.log(json);
-    });
+function getKorea() {
+    const xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", `https://stdict.korean.go.kr/api/search.do?key=${KoreanApi}q=별밤&num=50&advanced=y&method=start&pos=1`, false);
+    xmlHttp.send();
+    if(xmlHttp.status == 200) {
+        const data = Array.from(xmlHttp.responseXML.all);
+        const word = data.filter(item => item.tagName === "word");
+        let i = Math.round(Math.random() * 10);
+        console.log(word[i].textContent);
+        console.log("통신 성공");
+    } else {
+        console.log("통신 실패");
+    }
 }
-getKoreanApi();
+
+getKorea();
