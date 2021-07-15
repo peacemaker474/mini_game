@@ -1,33 +1,32 @@
 const KoreanApi = `EE719FB21746F0F92434ACD6A929FC13`;
 
-const getKorea = (lastWord) => {
-    const xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", `https://stdict.korean.go.kr/api/search.do?key=${KoreanApi}&q=${lastWord}&num=15&advanced=y&method=start&pos=1&letter_s=2&letter_e=6`, false);
-    xmlHttp.send();
-    if (xmlHttp.status == 200) {
-        const data = Array.from(xmlHttp.responseXML.all);
-        const check = data.filter(item => item.tagName === "total");
-        const word = data.filter(item => item.tagName === "word");
-        let i = Math.round(Math.random() * word.length);
-        if (check[0].textContent !== "0") {
-            if (!undefined) {
-                if (word.length === 1) {
-                    const computerWord = word[0].textContent;
-                    input.value = computerWord;
-                    computerInputWord(computerWord)
-                } else {
-                    const computerWordN = word[i].textContent;
-                    input.value = computerWordN;
-                    computerInputWord(computerWordN);
+// 컴퓨터 단어 입력하기
+const computerInput = (lastWord) => {
+    fetch(`https://stdict.korean.go.kr/api/search.do?key=${KoreanApi}&q=${lastWord}&num=15&advanced=y&method=start&pos=1&letter_s=2&letter_e=6`)
+        .then(response => response.text())
+        .then(data => {
+            const parser = new DOMParser();
+            const xml = parser.parseFromString(data, "text/xml");
+            const wordCheck = Array.from(xml.getElementsByTagName("total")); // 사전 단어 여부
+            const getWord = Array.from(xml.getElementsByTagName("word")); // 단어 가지고 오기
+            const i = Math.round(Math.random() * getWord.length); // 랜덤으로 가지고 오기
+
+            if (wordCheck[0].textContent !== "0") {
+                if (!undefined) {
+                    if (getWord.length === 1) {
+                        const computerWord = getWord[0].textContent;
+                        input.value = computerWord;
+                        paintComputer(computerWord);
+                    } else {
+                        const computerWordN = getWord[i].textContent;
+                        input.value = computerWordN;
+                        paintComputer(computerWordN);
+                    }
+                    setTimeout(() => input.value = input.value.slice(-1), 2000);
                 }
-                setTimeout(() => { input.value = input.value.slice(-1) }, 2000);
             } else {
-                input.value = "승리자"
+                location.reload(alert("사람 승리"));
             }
-        } else {
-            input.value = "승리자";
-        }
-    } else {
-        console.log("통신 실패");
-    }
+
+        })
 }
