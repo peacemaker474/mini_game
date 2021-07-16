@@ -5,25 +5,23 @@ const computer = document.querySelector(".computer_word");
 
 const pattern = /[a-z0-9]|[ \[\]{}()<>?|`~!@#$%^&*-_+=,.;:\"'\\]/g; // 한글만 입력, 정규표현식
 let whosWin = false; // 내가 입력한 단어 사전 유무체크
-let humanList = [];
-let computerList = [];
+let wordList = [];
 
 // 사전 유무 체크
 const checkWord = (inputWord) => {
     const xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", `https://stdict.korean.go.kr/api/search.do?key=${KoreanApi}&q=${inputWord}&advanced=y&pos=1`, false);
+    xmlHttp.open("GET", `https://opendict.korean.go.kr/api/search?key=${KoreanApi}&q=${inputWord}&advanced=y&pos=1`, false);
     xmlHttp.send(null);
     if (xmlHttp.status == 200) {
         const data = Array.from(xmlHttp.responseXML.all);
         const checkInput = data.filter(item => item.tagName === "total");
         const sameWord = data.filter(item => item.tagName === "word");
         const expectWord = sameWord.map(item => item.textContent = item.textContent.replace(pattern, ''));
-        console.log(checkInput);
         if (checkInput[0].textContent !== "0") {
             const inputCheck = expectWord.map(item => item === inputWord);
             const LastCheck = inputCheck.filter(item => item === true);
             if (LastCheck[0]) {
-                humanList.push(inputWord);
+                wordList.push(inputWord);
                 return whosWin = true;
             }
         } else {
@@ -50,8 +48,8 @@ const handleSubmitWord = (event) => {
     event.preventDefault();
     let currentValue = input.value;
     let checking;
-    if (humanList.length >= 2) {
-        const againWordCheck = humanList.find(item => item === currentValue);
+    if (wordList.length >= 2) {
+        const againWordCheck = wordList.find(item => item === currentValue);
         checking = againWordCheck;
     }
     if (!checking) { // 중복 단어 체크
@@ -68,7 +66,6 @@ const handleSubmitWord = (event) => {
         currentValue = "";
         input.value = "";
     }
-
 }
 
 const handleOnlyKorea = () => {
