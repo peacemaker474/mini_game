@@ -15,11 +15,15 @@ const computerInput = (lastWord) => {
                 if (!undefined) {
                     if (getWord.length === 1) {
                         const computerWord = getWord[0].textContent;
+                        const word = computerWord.replace(pattern, '');
                         input.value = computerWord;
+                        computerList.push(word);
                         paintComputer(computerWord);
                     } else {
                         const computerWordN = getWord[i].textContent;
+                        const word = computerWordN.replace(pattern, '');
                         input.value = computerWordN;
+                        computerList.push(word);
                         paintComputer(computerWordN);
                     }
                     setTimeout(() => input.value = input.value.slice(-1), 2000);
