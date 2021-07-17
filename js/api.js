@@ -9,24 +9,25 @@ const computerInput = (lastWord) => {
             const xml = parser.parseFromString(data, "text/xml");
             const wordCheck = Array.from(xml.getElementsByTagName("total")); // 사전 단어 여부
             const getWord = Array.from(xml.getElementsByTagName("word")); // 단어 가지고 오기
-            const i = Math.round(Math.random() * getWord.length); // 랜덤으로 가지고 오기
+            let i = 0; // 랜덤으로 번호 가지고 오기
+            if (getWord.length === 1) {
+                i = Math.round(Math.random() * getWord.length) - 1; // 랜덤으로 가지고 오기
+            } else {
+                i = Math.round(Math.random() * getWord.length); // 랜덤으로 가지고 오기
+            }
 
             if (wordCheck[0].textContent !== "0") {
-                if (!undefined) { // 받아서 입력하는 부분에서 또 다시 undefined가 뜸...
-                    if (getWord.length === 1) {
-                        const computerWord = getWord[0].textContent;
-                        const word = computerWord.replace(pattern, '');
-                        input.value = computerWord;
-                        wordList.push(word);
-                        paintComputer(computerWord);
-                    } else {
-                        const computerWordN = getWord[i].textContent;
-                        const word = computerWordN.replace(pattern, '');
-                        input.value = computerWordN;
-                        wordList.push(word);
-                        paintComputer(computerWordN);
-                    }
+                const computerWordN = getWord[i].textContent;
+                const word = computerWordN.replace(pattern, '');
+                const againWordCheck = wordList.indexOf(word);
+                if (againWordCheck === -1) {
+                    input.value = computerWordN;
+                    wordList.push(word);
+                    paintComputer(computerWordN);
                     setTimeout(() => input.value = input.value.slice(-1), 2000);
+                } else {
+                    computerInput(lastWord);
+                    input.value = lastWord;
                 }
             } else {
                 location.reload(alert("사람 승리"));

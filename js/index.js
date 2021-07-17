@@ -47,6 +47,8 @@ const paintHuman = (text) => {
 const handleSubmitWord = (event) => {
     event.preventDefault();
     let currentValue = input.value;
+    const sendValue = currentValue;
+    const lastWord = currentValue.slice(-1);
     let checking;
     if (wordList.length >= 2) {
         const againWordCheck = wordList.find(item => item === currentValue);
@@ -56,9 +58,8 @@ const handleSubmitWord = (event) => {
         checkWord(currentValue);
         if (whosWin) {
             paintHuman(currentValue);
-            const lastWord = currentValue.slice(-1);
             input.value = lastWord;
-            computerInput(lastWord);
+            computerInput(lastWord, sendValue);
         } else {
             location.reload(alert("컴퓨터 승리"));
         }
