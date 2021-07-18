@@ -1,4 +1,4 @@
-const KoreanApi = `1A09521BBDB9891B2B8E44E67B21199F`;
+const KoreanApi = `E12ACB776EEB4ADFB01C66EE3F4FC14E`;
 
 // 컴퓨터 단어 입력하기
 const computerInput = (lastWord) => {
