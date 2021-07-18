@@ -13,7 +13,7 @@ let beforeAfter = ""; // 단어 앞뒤 체크
 // 사전 유무 체크
 const checkWord = (inputWord) => {
     const xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", `https://opendict.korean.go.kr/api/search?key=${KoreanApi}&q=${inputWord}&advanced=y&pos=1`, false);
+    xmlHttp.open("GET", `https://wordvs.herokuapp.com/https://opendict.korean.go.kr/api/search?key=${KoreanApi}&q=${inputWord}&advanced=y&pos=1`, false);
     xmlHttp.send(null);
     if (xmlHttp.status == 200) {
         const data = Array.from(xmlHttp.responseXML.all);

@@ -2,7 +2,7 @@ const KoreanApi = `E12ACB776EEB4ADFB01C66EE3F4FC14E`;
 
 // 컴퓨터 단어 입력하기
 const computerInput = (lastWord) => {
-    fetch(`https://opendict.korean.go.kr/api/search?key=${KoreanApi}&q=${lastWord}&num=15&sort=popular&method=start&advanced=y&pos=1&letter_s=2&letter_e=6`)
+    fetch(`https://wordvs.herokuapp.com/https://opendict.korean.go.kr/api/search?key=${KoreanApi}&q=${lastWord}&num=15&sort=popular&method=start&advanced=y&pos=1&letter_s=2&letter_e=6`)
         .then(response => response.text())
         .then(data => {
             const parser = new DOMParser();
